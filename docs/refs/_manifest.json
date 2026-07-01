@@ -1,0 +1,559 @@
+{
+  "downloaded": [
+    {
+      "id": "1112.5745",
+      "title": "Bayesian Active Learning for Classification and Preference Learning",
+      "year": "2011",
+      "url": "https://arxiv.org/abs/1112.5745",
+      "file": "arxiv_1112.5745__Bayesian_Active_Learning_for_Classification_and_Preference_L.pdf",
+      "kb": 543
+    },
+    {
+      "id": "1603.09320",
+      "title": "Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs",
+      "year": "2016",
+      "url": "https://arxiv.org/abs/1603.09320",
+      "file": "arxiv_1603.09320__Efficient_and_robust_approximate_nearest_neighbor_search_usi.pdf",
+      "kb": 2575
+    },
+    {
+      "id": "1605.09674",
+      "title": "VIME: Variational Information Maximizing Exploration",
+      "year": "2016",
+      "url": "https://arxiv.org/abs/1605.09674",
+      "file": "arxiv_1605.09674__VIME_Variational_Information_Maximizing_Exploration.pdf",
+      "kb": 3748
+    },
+    {
+      "id": "1707.06690",
+      "title": "DeepPath: A Reinforcement Learning Method for Knowledge Graph Reasoning",
+      "year": "2017",
+      "url": "https://arxiv.org/abs/1707.06690",
+      "file": "arxiv_1707.06690__DeepPath_A_Reinforcement_Learning_Method_for_Knowledge_Graph.pdf",
+      "kb": 431
+    },
+    {
+      "id": "1711.05851",
+      "title": "Go for a Walk and Arrive at the Answer: Reasoning Over Paths in Knowledge Bases using Reinforcement Learning",
+      "year": "2017",
+      "url": "https://arxiv.org/abs/1711.05851",
+      "file": "arxiv_1711.05851__Go_for_a_Walk_and_Arrive_at_the_Answer_Reasoning_Over_Paths.pdf",
+      "kb": 497
+    },
+    {
+      "id": "1809.02337",
+      "title": "Information-Theoretic Active Learning for Content-Based Image Retrieval",
+      "year": "2018",
+      "url": "https://arxiv.org/abs/1809.02337",
+      "file": "arxiv_1809.02337__Information-Theoretic_Active_Learning_for_Content-Based_Imag.pdf",
+      "kb": 3582
+    },
+    {
+      "id": "1809.09600",
+      "title": "HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering",
+      "year": "2018",
+      "url": "https://arxiv.org/abs/1809.09600",
+      "file": "arxiv_1809.09600__HotpotQA_A_Dataset_for_Diverse_Explainable_Multi-hop_Questio.pdf",
+      "kb": 2587
+    },
+    {
+      "id": "1905.05733",
+      "title": "Multi-step Retriever-Reader Interaction for Scalable Open-domain Question Answering",
+      "year": "2019",
+      "url": "https://arxiv.org/abs/1905.05733",
+      "file": "arxiv_1905.05733__Multi-step_Retriever-Reader_Interaction_for_Scalable_Open-do.pdf",
+      "kb": 476
+    },
+    {
+      "id": "1906.08158",
+      "title": "BatchBALD: Efficient and Diverse Batch Acquisition for Deep Bayesian Active Learning",
+      "year": "2019",
+      "url": "https://arxiv.org/abs/1906.08158",
+      "file": "arxiv_1906.08158__BatchBALD_Efficient_and_Diverse_Batch_Acquisition_for_Deep_B.pdf",
+      "kb": 3907
+    },
+    {
+      "id": "2101.02235",
+      "title": "Did Aristotle Use a Laptop? A Question Answering Benchmark with Implicit Reasoning Strategies",
+      "year": "2021",
+      "url": "https://arxiv.org/abs/2101.02235",
+      "file": "arxiv_2101.02235__Did_Aristotle_Use_a_Laptop_A_Question_Answering_Benchmark_wi.pdf",
+      "kb": 767
+    },
+    {
+      "id": "2103.02438",
+      "title": "Deep Adaptive Design: Amortizing Sequential Bayesian Experimental Design",
+      "year": "2021",
+      "url": "https://arxiv.org/abs/2103.02438",
+      "file": "arxiv_2103.02438__Deep_Adaptive_Design_Amortizing_Sequential_Bayesian_Experime.pdf",
+      "kb": 1116
+    },
+    {
+      "id": "2104.05883",
+      "title": "Multi-Step Reasoning Over Unstructured Text with Beam Dense Retrieval",
+      "year": "2021",
+      "url": "https://arxiv.org/abs/2104.05883",
+      "file": "arxiv_2104.05883__Multi-Step_Reasoning_Over_Unstructured_Text_with_Beam_Dense.pdf",
+      "kb": 373
+    },
+    {
+      "id": "2108.00573",
+      "title": "MuSiQue: Multihop Questions via Single-hop Question Composition",
+      "year": "2021",
+      "url": "https://arxiv.org/abs/2108.00573",
+      "file": "arxiv_2108.00573__MuSiQue_Multihop_Questions_via_Single-hop_Question_Compositi.pdf",
+      "kb": 956
+    },
+    {
+      "id": "2112.09332",
+      "title": "WebGPT: Browser-assisted question-answering with human feedback",
+      "year": "2021",
+      "url": "https://arxiv.org/abs/2112.09332",
+      "file": "arxiv_2112.09332__WebGPT_Browser-assisted_question-answering_with_human_feedba.pdf",
+      "kb": 1452
+    },
+    {
+      "id": "2202.13296",
+      "title": "Subgraph Retrieval Enhanced Model for Multi-hop Knowledge Base Question Answering",
+      "year": "2022",
+      "url": "https://arxiv.org/abs/2202.13296",
+      "file": "arxiv_2202.13296__Subgraph_Retrieval_Enhanced_Model_for_Multi-hop_Knowledge_Ba.pdf",
+      "kb": 6578
+    },
+    {
+      "id": "2210.03350",
+      "title": "Measuring and Narrowing the Compositionality Gap in Language Models",
+      "year": "2022",
+      "url": "https://arxiv.org/abs/2210.03350",
+      "file": "arxiv_2210.03350__Measuring_and_Narrowing_the_Compositionality_Gap_in_Language.pdf",
+      "kb": 1049
+    },
+    {
+      "id": "2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "year": "2022",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "file": "arxiv_2210.03629__ReAct_Synergizing_Reasoning_and_Acting_in_Language_Models.pdf",
+      "kb": 619
+    },
+    {
+      "id": "2212.10496",
+      "title": "Precise Zero-Shot Dense Retrieval without Relevance Labels",
+      "year": "2022",
+      "url": "https://arxiv.org/abs/2212.10496",
+      "file": "arxiv_2212.10496__Precise_Zero-Shot_Dense_Retrieval_without_Relevance_Labels.pdf",
+      "kb": 415
+    },
+    {
+      "id": "2212.10509",
+      "title": "Interleaving Retrieval with Chain-of-Thought Reasoning for Knowledge-Intensive Multi-Step Questions",
+      "year": "2022",
+      "url": "https://arxiv.org/abs/2212.10509",
+      "file": "arxiv_2212.10509__Interleaving_Retrieval_with_Chain-of-Thought_Reasoning_for_K.pdf",
+      "kb": 6011
+    },
+    {
+      "id": "2305.06983",
+      "title": "Active Retrieval Augmented Generation",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2305.06983",
+      "file": "arxiv_2305.06983__Active_Retrieval_Augmented_Generation.pdf",
+      "kb": 831
+    },
+    {
+      "id": "2305.10601",
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2305.10601",
+      "file": "arxiv_2305.10601__Tree_of_Thoughts_Deliberate_Problem_Solving_with_Large_Langu.pdf",
+      "kb": 781
+    },
+    {
+      "id": "2305.15294",
+      "title": "Enhancing Retrieval-Augmented Large Language Models with Iterative Retrieval-Generation Synergy",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2305.15294",
+      "file": "arxiv_2305.15294__Enhancing_Retrieval-Augmented_Large_Language_Models_with_Ite.pdf",
+      "kb": 554
+    },
+    {
+      "id": "2307.04962",
+      "title": "Intrinsically motivated graph exploration using network theories of human curiosity",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2307.04962",
+      "file": "arxiv_2307.04962__Intrinsically_motivated_graph_exploration_using_network_theo.pdf",
+      "kb": 1262
+    },
+    {
+      "id": "2307.07697",
+      "title": "Think-on-Graph: Deep and Responsible Reasoning of Large Language Model on Knowledge Graph",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2307.07697",
+      "file": "arxiv_2307.07697__Think-on-Graph_Deep_and_Responsible_Reasoning_of_Large_Langu.pdf",
+      "kb": 3677
+    },
+    {
+      "id": "2310.04406",
+      "title": "Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2310.04406",
+      "file": "arxiv_2310.04406__Language_Agent_Tree_Search_Unifies_Reasoning_Acting_and_Plan.pdf",
+      "kb": 1030
+    },
+    {
+      "id": "2310.11511",
+      "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2310.11511",
+      "file": "arxiv_2310.11511__Self-RAG_Learning_to_Retrieve_Generate_and_Critique_through.pdf",
+      "kb": 1372
+    },
+    {
+      "id": "2311.08584",
+      "title": "Asking More Informative Questions for Grounded Retrieval",
+      "year": "2023",
+      "url": "https://arxiv.org/abs/2311.08584",
+      "file": "arxiv_2311.08584__Asking_More_Informative_Questions_for_Grounded_Retrieval.pdf",
+      "kb": 6207
+    },
+    {
+      "id": "2402.03271",
+      "title": "Uncertainty of Thoughts: Uncertainty-Aware Planning Enhances Information Seeking in Large Language Models",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2402.03271",
+      "file": "arxiv_2402.03271__Uncertainty_of_Thoughts_Uncertainty-Aware_Planning_Enhances.pdf",
+      "kb": 1212
+    },
+    {
+      "id": "2402.14116",
+      "title": "FanOutQA: A Multi-Hop, Multi-Document Question Answering Benchmark for Large Language Models",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2402.14116",
+      "file": "arxiv_2402.14116__FanOutQA_A_Multi-Hop_Multi-Document_Question_Answering_Bench.pdf",
+      "kb": 458
+    },
+    {
+      "id": "2403.10081",
+      "title": "DRAGIN: Dynamic Retrieval Augmented Generation based on the Information Needs of Large Language Models",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2403.10081",
+      "file": "arxiv_2403.10081__DRAGIN_Dynamic_Retrieval_Augmented_Generation_based_on_the_I.pdf",
+      "kb": 502
+    },
+    {
+      "id": "2403.14403",
+      "title": "Adaptive-RAG: Learning to Adapt Retrieval-Augmented Large Language Models through Question Complexity",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2403.14403",
+      "file": "arxiv_2403.14403__Adaptive-RAG_Learning_to_Adapt_Retrieval-Augmented_Large_Lan.pdf",
+      "kb": 564
+    },
+    {
+      "id": "2404.16130",
+      "title": "From Local to Global: A Graph RAG Approach to Query-Focused Summarization",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2404.16130",
+      "file": "arxiv_2404.16130__From_Local_to_Global_A_Graph_RAG_Approach_to_Query-Focused_S.pdf",
+      "kb": 6732
+    },
+    {
+      "id": "2405.14831",
+      "title": "HippoRAG: Neurobiologically Inspired Long-Term Memory for Large Language Models",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2405.14831",
+      "file": "arxiv_2405.14831__HippoRAG_Neurobiologically_Inspired_Long-Term_Memory_for_Lar.pdf",
+      "kb": 3325
+    },
+    {
+      "id": "2406.17453",
+      "title": "Learning to Ask Informative Questions: Enhancing LLMs with Preference Optimization and Expected Information Gain",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2406.17453",
+      "file": "arxiv_2406.17453__Learning_to_Ask_Informative_Questions_Enhancing_LLMs_with_Pr.pdf",
+      "kb": 974
+    },
+    {
+      "id": "2407.10805",
+      "title": "Think-on-Graph 2.0: Deep and Faithful Large Language Model Reasoning with Knowledge-guided Retrieval Augmented Generation",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2407.10805",
+      "file": "arxiv_2407.10805__Think-on-Graph_2.0_Deep_and_Faithful_Large_Language_Model_Re.pdf",
+      "kb": 2247
+    },
+    {
+      "id": "2409.12941",
+      "title": "Fact, Fetch, and Reason: A Unified Evaluation of Retrieval-Augmented Generation",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2409.12941",
+      "file": "arxiv_2409.12941__Fact_Fetch_and_Reason_A_Unified_Evaluation_of_Retrieval-Augm.pdf",
+      "kb": 1136
+    },
+    {
+      "id": "2410.04343",
+      "title": "Inference Scaling for Long-Context Retrieval Augmented Generation",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2410.04343",
+      "file": "arxiv_2410.04343__Inference_Scaling_for_Long-Context_Retrieval_Augmented_Gener.pdf",
+      "kb": 7800
+    },
+    {
+      "id": "2410.05779",
+      "title": "LightRAG: Simple and Fast Retrieval-Augmented Generation",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2410.05779",
+      "file": "arxiv_2410.05779__LightRAG_Simple_and_Fast_Retrieval-Augmented_Generation.pdf",
+      "kb": 1097
+    },
+    {
+      "id": "2501.05366",
+      "title": "Search-o1: Agentic Search-Enhanced Large Reasoning Models",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2501.05366",
+      "file": "arxiv_2501.05366__Search-o1_Agentic_Search-Enhanced_Large_Reasoning_Models.pdf",
+      "kb": 640
+    },
+    {
+      "id": "2501.09136",
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2501.09136",
+      "file": "arxiv_2501.09136__Agentic_Retrieval-Augmented_Generation_A_Survey_on_Agentic_R.pdf",
+      "kb": 13935
+    },
+    {
+      "id": "2502.12442",
+      "title": "HopRAG: Multi-Hop Reasoning for Logic-Aware Retrieval-Augmented Generation",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2502.12442",
+      "file": "arxiv_2502.12442__HopRAG_Multi-Hop_Reasoning_for_Logic-Aware_Retrieval-Augment.pdf",
+      "kb": 6000
+    },
+    {
+      "id": "2502.13957",
+      "title": "Supervising the search process produces reliable and generalizable information-seeking agents",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2502.13957",
+      "file": "arxiv_2502.13957__Supervising_the_search_process_produces_reliable_and_general.pdf",
+      "kb": 4951
+    },
+    {
+      "id": "2502.14902",
+      "title": "PathRAG: Pruning Graph-based Retrieval Augmented Generation with Relational Paths",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2502.14902",
+      "file": "arxiv_2502.14902__PathRAG_Pruning_Graph-based_Retrieval_Augmented_Generation_w.pdf",
+      "kb": 889
+    },
+    {
+      "id": "2503.05592",
+      "title": "R1-Searcher: Incentivizing the Search Capability in LLMs via Reinforcement Learning",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2503.05592",
+      "file": "arxiv_2503.05592__R1-Searcher_Incentivizing_the_Search_Capability_in_LLMs_via.pdf",
+      "kb": 3584
+    },
+    {
+      "id": "2503.09516",
+      "title": "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2503.09516",
+      "file": "arxiv_2503.09516__Search-R1_Training_LLMs_to_Reason_and_Leverage_Search_Engine.pdf",
+      "kb": 631
+    },
+    {
+      "id": "2503.19470",
+      "title": "ReSearch: Learning to Reason with Search for LLMs via Reinforcement Learning",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2503.19470",
+      "file": "arxiv_2503.19470__ReSearch_Learning_to_Reason_with_Search_for_LLMs_via_Reinfor.pdf",
+      "kb": 493
+    },
+    {
+      "id": "2503.20757",
+      "title": "MCTS-RAG: Enhancing Retrieval-Augmented Generation with Monte Carlo Tree Search",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2503.20757",
+      "file": "arxiv_2503.20757__MCTS-RAG_Enhancing_Retrieval-Augmented_Generation_with_Monte.pdf",
+      "kb": 1504
+    },
+    {
+      "id": "2504.01002",
+      "title": "Token embeddings violate the manifold hypothesis",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2504.01002",
+      "file": "arxiv_2504.01002__Token_embeddings_violate_the_manifold_hypothesis.pdf",
+      "kb": 1726
+    },
+    {
+      "id": "2504.03160",
+      "title": "DeepResearcher: Scaling Deep Research via Reinforcement Learning in Real-world Environments",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2504.03160",
+      "file": "arxiv_2504.03160__DeepResearcher_Scaling_Deep_Research_via_Reinforcement_Learn.pdf",
+      "kb": 1132
+    },
+    {
+      "id": "2504.18070",
+      "title": "PropRAG: Guiding Retrieval with Beam Search over Proposition Paths",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2504.18070",
+      "file": "arxiv_2504.18070__PropRAG_Guiding_Retrieval_with_Beam_Search_over_Proposition.pdf",
+      "kb": 968
+    },
+    {
+      "id": "2509.12765",
+      "title": "InfoGain-RAG: Boosting Retrieval-Augmented Generation via Document Information Gain-based Reranking and Filtering",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2509.12765",
+      "file": "arxiv_2509.12765__InfoGain-RAG_Boosting_Retrieval-Augmented_Generation_via_Doc.pdf",
+      "kb": 9498
+    },
+    {
+      "id": "2509.13562",
+      "title": "MA-DPR: Manifold-aware Distance Metrics for Dense Passage Retrieval",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2509.13562",
+      "file": "arxiv_2509.13562__MA-DPR_Manifold-aware_Distance_Metrics_for_Dense_Passage_Ret.pdf",
+      "kb": 1527
+    },
+    {
+      "id": "2510.14337",
+      "title": "Stop-RAG: Value-Based Retrieval Control for Iterative RAG",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2510.14337",
+      "file": "arxiv_2510.14337__Stop-RAG_Value-Based_Retrieval_Control_for_Iterative_RAG.pdf",
+      "kb": 616
+    },
+    {
+      "id": "2510.16724",
+      "title": "A Comprehensive Survey on Reinforcement Learning-based Agentic Search: Foundations, Roles, Optimizations, Evaluations, and Applications",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2510.16724",
+      "file": "arxiv_2510.16724__A_Comprehensive_Survey_on_Reinforcement_Learning-based_Agent.pdf",
+      "kb": 1294
+    },
+    {
+      "id": "2601.17532",
+      "title": "Less is More for RAG: Information Gain Pruning for Generator-Aligned Reranking and Evidence Selection",
+      "year": "2026",
+      "url": "https://arxiv.org/abs/2601.17532",
+      "file": "arxiv_2601.17532__Less_is_More_for_RAG_Information_Gain_Pruning_for_Generator-.pdf",
+      "kb": 947
+    },
+    {
+      "id": "",
+      "title": "acl 2020.coling-main.580",
+      "year": "",
+      "url": "https://aclanthology.org/2020.coling-main.580.pdf",
+      "file": "acl_2020.coling-main.580.pdf",
+      "kb": 624
+    },
+    {
+      "id": "",
+      "title": "acl 2023.emnlp-main.507 RAP",
+      "year": "",
+      "url": "https://aclanthology.org/2023.emnlp-main.507.pdf",
+      "file": "acl_2023.emnlp-main.507_RAP.pdf",
+      "kb": 715
+    },
+    {
+      "id": "",
+      "title": "acl D17-1060",
+      "year": "",
+      "url": "https://aclanthology.org/D17-1060.pdf",
+      "file": "acl_D17-1060.pdf",
+      "kb": 324
+    },
+    {
+      "id": "",
+      "title": "acl D17-1061",
+      "year": "",
+      "url": "https://aclanthology.org/D17-1061.pdf",
+      "file": "acl_D17-1061.pdf",
+      "kb": 441
+    },
+    {
+      "id": "",
+      "title": "openreview xYGNO86OWDH isotropy",
+      "year": "",
+      "url": "https://openreview.net/pdf?id=xYGNO86OWDH",
+      "file": "openreview_xYGNO86OWDH_isotropy.pdf",
+      "kb": 5317
+    },
+    {
+      "id": "",
+      "title": "cvpr2018w Shao Riemannian Geometry",
+      "year": "",
+      "url": "https://openaccess.thecvf.com/content_cvpr_2018_workshops/papers/w10/Shao_The_Riemannian_Geometry_CVPR_2018_paper.pdf",
+      "file": "cvpr2018w_Shao_Riemannian_Geometry.pdf",
+      "kb": 632
+    },
+    {
+      "id": "",
+      "title": "icml2017 pathak ICM noreward",
+      "year": "",
+      "url": "https://pathak22.github.io/noreward-rl/resources/icml17.pdf",
+      "file": "icml2017_pathak_ICM_noreward.pdf",
+      "kb": 1888
+    },
+    {
+      "id": "",
+      "title": "neurips2016 count based exploration",
+      "year": "",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2016/file/afda332245e2af431fb7b672a68b659d-Paper.pdf",
+      "file": "neurips2016_count_based_exploration.pdf",
+      "kb": 709
+    }
+  ],
+  "failed": [
+    [
+      "openreview_SJgVHkrYDH.pdf",
+      "https://openreview.net/pdf?id=SJgVHkrYDH",
+      "HTTP 403"
+    ],
+    [
+      "openreview_VD-AYtP0dve.pdf",
+      "https://openreview.net/pdf?id=VD-AYtP0dve",
+      "HTTP 403"
+    ],
+    [
+      "pnas2002_GirvanNewman.pdf",
+      "https://www.pnas.org/doi/pdf/10.1073/pnas.122653799",
+      "HTTP 403"
+    ]
+  ],
+  "paywalled": [
+    [
+      "Granovetter 1973, The Strength of Weak Ties",
+      "https://www.jstor.org/stable/2776392"
+    ],
+    [
+      "Freeman 1977, A Set of Measures of Centrality Based on Betweenness",
+      "https://www.jstor.org/stable/3033543"
+    ],
+    [
+      "Gould & Fernandez 1989, Structures of Mediation (brokerage roles)",
+      "https://www.jstor.org/stable/270949"
+    ],
+    [
+      "Hwang et al. 2008, Bridging Centrality",
+      "https://dl.acm.org/doi/10.1145/1401890.1401934"
+    ],
+    [
+      "Chen 2009, Pivotal-paper betweenness / CiteSpace",
+      "https://www.sciencedirect.com/science/article/abs/pii/S1751157709000200"
+    ],
+    [
+      "Swanson 1986, literature-based discovery (ABC)",
+      "https://www.sciencedirect.com/science/article/pii/S000437029800023X"
+    ],
+    [
+      "Swanson 1986, Undiscovered Public Knowledge (JHU Muse)",
+      "https://muse.jhu.edu/article/403510/summary"
+    ],
+    [
+      "Burt 1992, Structural Holes (book, Harvard University Press)",
+      "https://www.hup.harvard.edu/books/9780674843714"
+    ]
+  ]
+}

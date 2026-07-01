@@ -1,0 +1,7 @@
+# Local PDF copies of cited works — kept on disk, NOT tracked in git.
+# The tracked index docs/refs/REFERENCES.md + _manifest.json carry the links.
+docs/refs/*.pdf
+
+# macOS / editor cruft
+.DS_Store
+*.swp
