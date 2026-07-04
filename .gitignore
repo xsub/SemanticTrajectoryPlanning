@@ -2,6 +2,13 @@
 # The tracked index docs/refs/REFERENCES.md + _manifest.json carry the links.
 docs/refs/*.pdf
 
+# Python venvs, caches, run logs, smoke outputs (experiments/)
+**/.venv/
+**/__pycache__/
+*.pyc
+experiments/**/*.log
+experiments/**/smoke.json
+
 # macOS / editor cruft
 .DS_Store
 *.swp

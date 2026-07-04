@@ -1,0 +1,5 @@
+# Gate 0 — bridge-jump prevalence. Pinned to the versions this was run with.
+sentence-transformers==5.6.0
+datasets==5.0.0
+numpy==2.2.6
+# torch is pulled in by sentence-transformers (2.12.1 at time of writing, CPU is fine)
