@@ -58,7 +58,7 @@ import numpy as np
 def log(*a): print(*a, file=sys.stderr, flush=True)
 
 # --------------------------------------------------------------------- instance
-def build_instance(C, n, sep, sigma, d, seed):
+def build_instance(C, n, sep, sigma, d, seed, no_bridges=False):
     rng = np.random.default_rng(seed)
     centers = np.zeros((C, d)); centers[:, 0] = np.arange(C) * sep
     pts, clusters = [], []
@@ -68,9 +68,10 @@ def build_instance(C, n, sep, sigma, d, seed):
         pts.extend(P)
     gold = [clusters[c][int(rng.integers(0, n))] for c in range(C)]
     bridges = []
-    for c in range(C - 1):
-        b = (centers[c] + centers[c + 1]) / 2 + 0.05 * sigma * rng.standard_normal(d)
-        bridges.append(len(pts)); pts.append(b)
+    if not no_bridges:   # --no_bridges control: does the eig-vs-eig+bs separation come from bridges?
+        for c in range(C - 1):
+            b = (centers[c] + centers[c + 1]) / 2 + 0.05 * sigma * rng.standard_normal(d)
+            bridges.append(len(pts)); pts.append(b)
     X = np.asarray(pts)
     return X, gold, bridges, clusters, gold[-1], len(pts)
 
@@ -124,12 +125,13 @@ def run_policy(policy, S, knn, goldset, answer, seed0, info, budget, beta, rng):
     return len(V & goldset) / len(goldset), float(answer in V)
 
 # --------------------------------------------------------------------- sweep
-def sweep(C, n, sep, sigma, d, knn, budget, beta, bridge_infos, trials, base_seed):
+def sweep(C, n, sep, sigma, d, knn, budget, beta, bridge_infos, trials, base_seed, no_bridges=False):
     out = {}
     for bi in bridge_infos:
         agg = {p: [0.0, 0.0] for p in POLICIES}
         for t in range(trials):
-            X, gold, bridges, clusters, answer, N = build_instance(C, n, sep, sigma, d, base_seed + t)
+            X, gold, bridges, clusters, answer, N = build_instance(C, n, sep, sigma, d,
+                                                                   base_seed + t, no_bridges)
             S = sim_matrix(X)
             knn_s = knn_sets(S, knn)
             info = np.zeros(N)
@@ -156,6 +158,8 @@ def main():
     ap.add_argument("--beta", type=float, default=1.0)
     ap.add_argument("--trials", type=int, default=100)
     ap.add_argument("--bridge_infos", default="0.0,0.05,0.1,0.25,0.5,1.0")
+    ap.add_argument("--no_bridges", action="store_true",
+                    help="control: build instances WITHOUT bridge nodes (D5 construct-validity check)")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default="results_gate1.json")
     a = ap.parse_args()
@@ -164,7 +168,8 @@ def main():
     bis = [float(x) for x in a.bridge_infos.split(",")]
     log(f"[gate1] C={a.C} n={a.n} sep={a.sep} knn={knn} budget={budget} beta={a.beta} trials={a.trials}")
 
-    res = sweep(a.C, a.n, a.sep, a.sigma, a.d, knn, budget, a.beta, bis, a.trials, a.seed)
+    res = sweep(a.C, a.n, a.sep, a.sigma, a.d, knn, budget, a.beta, bis, a.trials, a.seed,
+                a.no_bridges)
     json.dump({"config": vars(a), "knn": knn, "budget": budget, "results": res},
               open(a.out, "w"), indent=2)
 

@@ -4,11 +4,12 @@ A cheap, LLM-free measurement that decides whether Semantic Trajectory Planning'
 surviving contribution has any room to exist **before** building the method.
 
 > **Result (MuSiQue + 2WikiMultiHopQA, 2,417 q each): PASS, decisively.** Under the
-> realistic `q+last` query at K=10, questions with a bridge hop: **MuSiQue ~73%, 2Wiki ~40%**
-> (conservative bge-small encoder). Robust across 2 encoders and 4 query formulations, so
-> it is *not* a context-encoding artifact; MuSiQue > 2Wiki exactly as expected (MuSiQue is
-> adversarially filtered against shortcuts). Full numbers + interpretation:
-> [`RESULTS.md`](RESULTS.md).
+> realistic `q+last` query at K=10, questions with a bridge hop: **MuSiQue ~73%, 2Wiki ~37%**
+> (conservative bge-small encoder; 2Wiki regenerated after the D8 chain-ordering fix, see
+> [ARC_VERIFICATION](../../docs/ARC_VERIFICATION.md)). Robust across 2 encoders and 4 query
+> formulations, so it is *not* a context-encoding artifact; MuSiQue > 2Wiki exactly as
+> expected (MuSiQue is adversarially filtered against shortcuts). Full numbers +
+> interpretation: [`RESULTS.md`](RESULTS.md).
 
 ## Why this experiment exists
 

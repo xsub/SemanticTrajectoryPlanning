@@ -10,8 +10,13 @@ adversarially filtered). This confirms the *problem* exists; it does not yet val
 STP's *method* (that is Gate 1, the synthetic simulator).
 
 **Conservative headline (strong encoder bge-small, realistic `q+last` query, K=10):
-MuSiQue 72.7% · 2Wiki 40.4%** of questions contain a bridge hop — both far above the ~5%
+MuSiQue 72.7% · 2Wiki 37.3%** of questions contain a bridge hop — both far above the ~5%
 "stop" line.
+
+> Note: the 2Wiki numbers were regenerated after fixing a chain-ordering bug found by the
+> [arc verification](../../docs/ARC_VERIFICATION.md) (D8): evidence-title matching reversed
+> ~15% of gold chains; `supporting_facts` is now the authoritative hop order. The headline
+> moved ~3 points (40.4→37.3) and the depth gradient became clean and monotone.
 
 The detailed MuSiQue tables are below; the 2Wiki tables and the cross-dataset summary
 follow in [§ Cross-dataset](#cross-dataset--2wikimultihopqa-corpus-matched).
@@ -77,26 +82,31 @@ confounded by pool size).
 
 | query mode | bge-small K=5/10/20 | MiniLM K=5/10/20 |
 |---|---|---|
-| `concat` | 49.5 / 42.7 / 36.9 | 70.3 / 63.2 / 57.5 |
-| `question` | 60.1 / 55.6 / 51.5 | 74.8 / 68.6 / 63.5 |
-| `last` | 65.2 / 59.5 / 55.5 | 79.0 / 73.4 / 68.6 |
-| **`q+last`** (realistic) | **48.0 / 40.4 / 33.9** | **70.4 / 63.1 / 57.2** |
+| `concat` | 42.9 / 36.0 / 30.7 | 66.5 / 58.8 / 53.1 |
+| `question` | 59.9 / 55.4 / 51.3 | 74.5 / 68.5 / 63.4 |
+| `last` | 58.5 / 52.9 / 49.6 | 74.4 / 68.5 / 63.8 |
+| **`q+last`** (realistic) | **43.4 / 37.3 / 32.7** | **66.6 / 59.0 / 53.4** |
 
-Same three signatures as MuSiQue: (1) `q+last` ≈ `concat` and `last` is *higher* → **not a
-truncation artifact**; (2) steep depth gradient at K=10 `q+last` (bge: h1=9% → h2=21% →
-h3=49%; MiniLM: h1=17% → h2=46% → h3=67%); (3) both encoders pass by a wide margin.
+Same signatures as MuSiQue: (1) `q+last` ≈ `concat` and `last` is markedly *higher* than
+`q+last` → **not a truncation artifact**; (2) steep, now-monotone depth gradient at K=10
+`q+last` (bge: h1=1% → h2=21% → h3=94%; MiniLM: h1=6% → h2=46% → h3=93%); (3) both encoders
+pass by a wide margin. The pre-fix anomaly (a non-monotone `question`-mode gradient) is gone —
+it was an artifact of the reversed chains, not a property of the data.
 
 ### The two datasets side by side (bge-small, `q+last`, K=10)
 
 | | MuSiQue (filtered vs shortcuts) | 2Wiki (not filtered) |
 |---|---|---|
-| item% ≥1 bridge | **72.7%** | **40.4%** |
-| hop%(≥2) | 63.1% | 29.2% |
-| depth h1 → h3 | 20% → 75% | 9% → 49% |
+| item% ≥1 bridge | **72.7%** | **37.3%** |
+| hop%(≥2) | 63.1% | 44.1% |
+| depth h1 → h3 | 20% → 75% | 1% → 94% |
 
 The level difference is the expected, *validating* contrast: the dataset explicitly
-engineered so a disconnected retriever fails has ~1.8× the bridge prevalence of the one
-that isn't. The gradient shape is identical.
+engineered so a disconnected retriever fails has ~2× the bridge prevalence of the one that
+isn't. Note the gradient *steepness* differs between datasets (2Wiki's h1 is near zero and its
+h3+ is near-saturated); what is shared is the monotone shape, measured — honestly — at **one
+corpus size per dataset**. A second-corpus-size run to show the gradient shape is
+scale-stable remains future work.
 
 ## Honest caveats
 

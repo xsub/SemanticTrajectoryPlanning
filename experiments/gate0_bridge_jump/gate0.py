@@ -120,15 +120,18 @@ def load_2wiki(split, limit):
             t = S(t)
             if t and sent.strip():
                 ctx[t] = sent.strip()
-        # order hops by evidences (subject then object titles), fallback supporting_facts order
+        # D8 fix (ARC_VERIFICATION): supporting_facts is the AUTHORITATIVE hop order — evidence
+        # subject/object titles often don't exactly match context titles ("X" vs "X (film)"),
+        # which reversed ~15% of chains when evidences were scanned first. Evidences are now
+        # only a fallback fill for titles absent from supporting_facts.
         order = []
+        for sf in ex.get("supporting_facts", []) or []:
+            t = S(sf[0])
+            if t in ctx and t not in order: order.append(t)
         for ev in ex.get("evidences", []) or []:
             for t in (ev[0], ev[-1]):
                 t = S(t)
                 if t in ctx and t not in order: order.append(t)
-        for sf in ex.get("supporting_facts", []) or []:
-            t = S(sf[0])
-            if t in ctx and t not in order: order.append(t)
         chain = [{"text": ctx[t], "title": t, "key": (t, ctx[t])} for t in order if ctx[t]]
         if len(chain) < 2:
             dropped += 1; continue

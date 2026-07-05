@@ -1,0 +1,55 @@
+{
+  "config": {
+    "C": 6,
+    "n": 30,
+    "sep": 6.0,
+    "sigma": 0.3,
+    "d": 8,
+    "knn": 0,
+    "budget": 0,
+    "beta": 1.0,
+    "trials": 200,
+    "bridge_infos": "0.0",
+    "no_bridges": true,
+    "seed": 0,
+    "out": "results_gate1_nobridges.json"
+  },
+  "knn": 33,
+  "budget": 18,
+  "results": {
+    "0.0": {
+      "random": {
+        "recall": 0.113,
+        "success": 0.0
+      },
+      "query": {
+        "recall": 0.109,
+        "success": 0.0
+      },
+      "cosine": {
+        "recall": 0.111,
+        "success": 0.0
+      },
+      "curiosity": {
+        "recall": 0.11,
+        "success": 0.08
+      },
+      "eig": {
+        "recall": 0.45,
+        "success": 0.005
+      },
+      "bs": {
+        "recall": 0.104,
+        "success": 0.005
+      },
+      "eig+lookahead": {
+        "recall": 0.925,
+        "success": 0.695
+      },
+      "eig+bs": {
+        "recall": 0.915,
+        "success": 0.69
+      }
+    }
+  }
+}

@@ -3,12 +3,15 @@
 The oracle simulator that tests whether STP's *mechanism* works, after Gate 0 confirmed the
 *problem* exists.
 
-> **Result: mechanism survives, but narrows.** Myopic information gain fails to cross bridges
-> (0% at pure-stepping-stone `bridge_info=0`), so a bridge-aware signal is genuinely needed —
-> the program does **not** die. But an explicit Bridge Score is **statistically
-> indistinguishable from 1-step lookahead EIG** (78% vs 79%). So STP's honest claim is "a
-> cheap reachability surrogate for shallow planning where myopic info-gain fails", not "a novel
-> signal". Full numbers + caveats: [`RESULTS.md`](RESULTS.md).
+> **Result (corrected after [arc verification](../../docs/ARC_VERIFICATION.md), D4/D5): the
+> mechanism survives, but both its narratives were fixed.** At matched budget, myopic info-gain
+> scores 0% while EIG+BS scores 78% — but (1) the no-bridge control shows the separation comes
+> from **frontier-stepping**, not bridge-crossing (eig+bs still hits 69% with all bridges
+> removed), and (2) the myopic 0% is **budget starvation, not impossibility** (same policy
+> reaches 74% at ~5.5× budget). BS remains **statistically indistinguishable from 1-step
+> lookahead EIG** (78% vs 79%), so the honest claim is unchanged: a cheap reachability
+> surrogate for shallow planning under tight budgets — not a novel signal. Full numbers +
+> both controls: [`RESULTS.md`](RESULTS.md).
 
 ## Why this experiment exists
 

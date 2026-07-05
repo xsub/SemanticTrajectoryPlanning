@@ -59,9 +59,9 @@ def state_feature(sim, depth, prev_idx, E, state_emb):
             float(top[0] - top[4]), float(top[0] - top[9]), _entropy(top),
             tight, last]
 
-def collect(model, items, Kbridge, K, bs_head=None):
+def collect(model, items, corpus, Kbridge, K, bs_head=None):
     """Per hop-state: state features, is_bridge, dense-recovered@K, bs-recovered@K (if head)."""
-    key2idx, texts = gate2.build_corpus(items)
+    key2idx, texts = gate2.build_corpus(items, corpus)
     E = gate2.encode(model, texts); N = len(texts)
     states = list(gate2.hop_states(items, key2idx))
     S = gate2.encode(model, [s["state_text"] for s in states])
@@ -106,17 +106,18 @@ def main():
     model = SentenceTransformer(a.model, device="cpu")
 
     log(f"[gate3] loading data; training BS head (reuse Gate 2) ...")
-    train_items, _ = gate2.LOADERS[a.dataset]("train", a.train_limit)
-    val_items, _ = gate2.LOADERS[a.dataset]("validation", a.val_limit)
-    X, y_bs, _ = gate2.make_training(model, train_items, 40, 40, rng)
+    train_items, train_corpus = gate2.LOADERS[a.dataset]("train", a.train_limit)
+    val_items, val_corpus = gate2.LOADERS[a.dataset]("validation", a.val_limit)
+    log(f"[gate3] FULL corpora: train={len(train_corpus)} val={len(val_corpus)} paragraphs")
+    X, y_bs, _ = gate2.make_training(model, train_items, train_corpus, 40, 40, rng)
     bs_head = HistGradientBoostingClassifier(max_iter=300, random_state=a.seed).fit(X, y_bs)
 
     log("[gate3] building state-detector training data ...")
-    SFtr, isbtr, _, _ = collect(model, train_items, a.Kbridge, a.K, bs_head=None)
+    SFtr, isbtr, _, _ = collect(model, train_items, train_corpus, a.Kbridge, a.K, bs_head=None)
     det = HistGradientBoostingClassifier(max_iter=300, random_state=a.seed).fit(SFtr, isbtr)
 
     log("[gate3] evaluating on validation (dense + bs + detector) ...")
-    SFv, isbv, drec, brec = collect(model, val_items, a.Kbridge, a.K, bs_head=bs_head)
+    SFv, isbv, drec, brec = collect(model, val_items, val_corpus, a.Kbridge, a.K, bs_head=bs_head)
     P = det.predict_proba(SFv)[:, 1]
     auc = roc_auc_score(isbv, P)
     n = len(isbv); nb = int(isbv.sum())
@@ -134,8 +135,16 @@ def main():
         fired = int(fire.sum())
         prec = tp / fired if fired else 0.0
         rec = tp / nb if nb else 0.0
+        # D2 fix (ARC_VERIFICATION): the break-even must use the EMPIRICAL loss/gain on the
+        # fired subset, not the population averages — the detector fires on a selection-biased,
+        # bridge-like subset where the non-bridge loss is much larger than the population 0.22.
+        bfire = fire & isbv; nfire = fire & ~isbv
+        R_fired = float(brec[bfire].mean() - drec[bfire].mean()) if bfire.any() else None
+        L_fired = float(drec[nfire].mean() - brec[nfire].mean()) if nfire.any() else None
         sweep.append({"tau": tau, "fire_rate": round(fired / n, 3),
                       "precision": round(prec, 3), "recall": round(rec, 3),
+                      "R_fired": None if R_fired is None else round(R_fired, 3),
+                      "L_fired": None if L_fired is None else round(L_fired, 3),
                       "net": round(float(sel.mean()), 4)})
     best = max(sweep, key=lambda r: r["net"])
 
@@ -154,12 +163,25 @@ def main():
     print(f"\n  baselines (net recovery@K={a.K}):  dense={dense_net*100:.1f}%   "
           f"uniform-BS={uniform_bs_net*100:.1f}%")
     print(f"\n  selective sweep (escalate to BS where P(bridge) >= tau):")
-    print(f"    {'tau':>5} | {'fire%':>6} | {'prec':>5} | {'recall':>6} | {'NET%':>6}")
-    print("    " + "-" * 40)
+    print(f"    {'tau':>5} | {'fire%':>6} | {'prec':>5} | {'recall':>6} | {'R_fired':>7} |"
+          f" {'L_fired':>7} | {'NET%':>6}")
+    print("    " + "-" * 62)
     for r in sweep[::2]:
         star = "  <- best" if r is best else ""
+        rf = "  n/a" if r["R_fired"] is None else f"{r['R_fired']:5.2f}"
+        lf = "  n/a" if r["L_fired"] is None else f"{r['L_fired']:5.2f}"
         print(f"    {r['tau']:>5} | {r['fire_rate']*100:5.0f}% | {r['precision']:5.2f} |"
-              f" {r['recall']*100:5.0f}% | {r['net']*100:5.1f}%{star}")
+              f" {r['recall']*100:5.0f}% | {rf:>7} | {lf:>7} | {r['net']*100:5.1f}%{star}")
+    # empirical break-even from the fired-subset quantities (D2 fix)
+    ops = [r for r in sweep if r["R_fired"] is not None and r["L_fired"] is not None
+           and r["fire_rate"] >= 0.05]
+    if ops:
+        Rbar = float(np.mean([r["R_fired"] for r in ops]))
+        Lbar = float(np.mean([r["L_fired"] for r in ops]))
+        if Rbar + Lbar > 0:
+            pstar = Lbar / (Rbar + Lbar)
+            print(f"\n  empirical break-even (fired-subset averages over tau>=5% fire):"
+                  f" R={Rbar:.2f} L={Lbar:.2f} -> precision needed {pstar:.2f}")
     print("\n" + "-" * 76)
     print(f"VERDICT @K={a.K}:")
     print(f"  best selective net = {best['net']*100:.1f}%  (tau={best['tau']},"

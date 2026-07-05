@@ -66,12 +66,19 @@ def features(E, cand, state_emb, q_emb, retrieved):
         f_max = f_mean = f_min = f_last = z
     return np.stack([f_state, f_q, f_last, f_max, f_mean, f_min, 1 - f_max, f_state - f_max], 1)
 
-def build_corpus(items):
+def build_corpus(items, corpus):
+    """Index the FULL loader corpus (gold + distractor paragraphs).
+
+    D1 fix (see docs/ARC_VERIFICATION.md): an earlier version rebuilt the corpus from the
+    gold chains only (~2.6k paragraphs), silently discarding the loaders' distractors and
+    making the ranking task easier than documented. The loaders guarantee every gold key
+    is present in `corpus`, so indexing `corpus` directly gives the honest pool (~21k val)."""
     key2idx, texts = {}, []
-    for it in items:
+    for key, emb_text in corpus.items():
+        key2idx[key] = len(texts); texts.append(emb_text)
+    for it in items:                      # sanity: every gold must be in the pool
         for g in it["chain"]:
-            if g["key"] not in key2idx:
-                key2idx[g["key"]] = len(texts); texts.append(f'{g["title"]}. {g["text"]}')
+            assert g["key"] in key2idx, f"gold key missing from corpus: {g['key'][0][:40]}"
     return key2idx, texts
 
 def hop_states(items, key2idx):
@@ -84,8 +91,8 @@ def hop_states(items, key2idx):
                    "prev": gidx[:t], "remaining": set(gidx[t:])}
             acc = acc + " " + it["chain"][t]["text"]
 
-def make_training(model, items, neg_hard, neg_rand, rng):
-    key2idx, texts = build_corpus(items)
+def make_training(model, items, corpus, neg_hard, neg_rand, rng):
+    key2idx, texts = build_corpus(items, corpus)
     E = encode(model, texts)
     N = len(texts)
     states = list(hop_states(items, key2idx))
@@ -109,8 +116,8 @@ def make_training(model, items, neg_hard, neg_rand, rng):
         y_bs.append(lb); y_la.append(la)
     return np.vstack(X), np.concatenate(y_bs), np.concatenate(y_la)
 
-def evaluate(model, items, heads, Ks, Kbridge):
-    key2idx, texts = build_corpus(items)
+def evaluate(model, items, corpus, heads, Ks, Kbridge):
+    key2idx, texts = build_corpus(items, corpus)
     E = encode(model, texts); N = len(texts)
     states = list(hop_states(items, key2idx))
     S = encode(model, [s["state_text"] for s in states])
@@ -170,11 +177,12 @@ def main():
     model = SentenceTransformer(a.model, device="cpu")
 
     log(f"[gate2] loading train ({a.train_limit}) + val ({a.val_limit}) of {a.dataset}")
-    train_items, _ = LOADERS[a.dataset]("train", a.train_limit)
-    val_items, _ = LOADERS[a.dataset]("validation", a.val_limit)
+    train_items, train_corpus = LOADERS[a.dataset]("train", a.train_limit)
+    val_items, val_corpus = LOADERS[a.dataset]("validation", a.val_limit)
+    log(f"[gate2] FULL corpora: train={len(train_corpus)} val={len(val_corpus)} paragraphs")
 
     log("[gate2] building training tuples ...")
-    X, y_bs, y_la = make_training(model, train_items, a.neg_hard, a.neg_rand, rng)
+    X, y_bs, y_la = make_training(model, train_items, train_corpus, a.neg_hard, a.neg_rand, rng)
     log(f"[gate2] train matrix {X.shape}  pos_bs={int(y_bs.sum())} pos_la={int(y_la.sum())}")
     heads = {}
     heads["bs"] = HistGradientBoostingClassifier(max_iter=300, learning_rate=0.1,
@@ -182,11 +190,12 @@ def main():
     heads["la"] = HistGradientBoostingClassifier(max_iter=300, learning_rate=0.1,
                                                  random_state=a.seed).fit(X, y_la)
     log("[gate2] evaluating on validation ...")
-    cnt, n_states = evaluate(model, val_items, heads, Ks, a.Kbridge)
+    cnt, n_states = evaluate(model, val_items, val_corpus, heads, Ks, a.Kbridge)
 
     nb = {b: cnt["dense"][b][Ks[-1]][1] for b in (True, False)}
     POL = ["dense", "bs", "lookahead", "hybrid", "oracle"]
     out = {"config": vars(a), "n_val_states": n_states,
+           "corpus_train": len(train_corpus), "corpus_val": len(val_corpus),
            "n_bridge": nb[True], "n_nonbridge": nb[False], "results": {}}
     for p in POL:
         out["results"][p] = {name: {K: round(rate(cnt[p][b][K]), 1) for K in Ks}

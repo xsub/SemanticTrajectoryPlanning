@@ -97,8 +97,8 @@ def graph_feats(cand, seed_idx, PT, A, deg_norm, N, cap):
                      onehop[cand], deg_norm[cand]], 1)
 
 # ---------------------------------------------------------------- data build
-def make_rows(model, items, k, cap, neg_hard, neg_rand, rng, with_graph):
-    key2idx, texts = gate2.build_corpus(items)
+def make_rows(model, items, corpus, k, cap, neg_hard, neg_rand, rng, with_graph):
+    key2idx, texts = gate2.build_corpus(items, corpus)
     E = gate2.encode(model, texts); N = len(texts)
     A = PT = deg_norm = None
     if with_graph:
@@ -127,16 +127,17 @@ def make_rows(model, items, k, cap, neg_hard, neg_rand, rng, with_graph):
     Xg = np.vstack(Xg) if with_graph else None
     return (X8, Xg, Y)
 
-def evaluate(model, items, head8, headg, k, cap, Ks, Kbridge):
-    key2idx, texts = gate2.build_corpus(items)
+def evaluate(model, items, corpus, head8, headg, headn, k, cap, Ks, Kbridge, seed):
+    key2idx, texts = gate2.build_corpus(items, corpus)
     E = gate2.encode(model, texts); N = len(texts)
+    nrng = np.random.default_rng(seed + 777)   # eval-side noise for the noise-control head
     A, PT, deg = build_knn_graph(E, k)
     deg_norm = (deg / deg.max()).astype("float32")
     states = list(gate2.hop_states(items, key2idx))
     S = gate2.encode(model, [s["state_text"] for s in states])
     Q = gate2.encode(model, [s["q"] for s in states])
     allidx = np.arange(N)
-    POL = ["dense", "emb8", "emb8+graph", "oracle"]
+    POL = ["dense", "emb8", "emb8+graph", "emb8+noise", "oracle"]
     cnt = {p: {b: {K: [0, 0] for K in Ks} for b in (True, False, "all")} for p in POL}
     for i, s in enumerate(states):
         prev = s["prev"]; prevset = set(prev)
@@ -144,13 +145,16 @@ def evaluate(model, items, head8, headg, k, cap, Ks, Kbridge):
         F8 = gate2.features(E, cand, S[i], Q[i], prev)
         sim = F8[:, 0]
         order = np.argsort(-sim)
-        seed = prev if prev else list(order[:5])
-        Fg = np.hstack([F8, graph_feats(cand, seed, PT, A, deg_norm, N, cap)])
+        seedset = prev if prev else list(order[:5])
+        Fg = np.hstack([F8, graph_feats(cand, seedset, PT, A, deg_norm, N, cap)])
+        Fn = np.hstack([F8, nrng.random((len(cand), 4), dtype=np.float32)])  # noise control
         gpos = int(np.where(cand == s["gold"])[0][0])
         p8 = head8.predict_proba(F8)[:, 1]
         pg = headg.predict_proba(Fg)[:, 1]
+        pn = headn.predict_proba(Fn)[:, 1]
         rp = {"dense": int((sim > sim[gpos]).sum()), "emb8": int((p8 > p8[gpos]).sum()),
-              "emb8+graph": int((pg > pg[gpos]).sum()), "oracle": 0}
+              "emb8+graph": int((pg > pg[gpos]).sum()),
+              "emb8+noise": int((pn > pn[gpos]).sum()), "oracle": 0}
         is_bridge = rp["dense"] >= Kbridge
         for K in Ks:
             for p in POL:
@@ -181,20 +185,25 @@ def main():
     model = SentenceTransformer(a.model, device="cpu")
 
     log("[gate4] loading + building training rows (emb8 + graph) ...")
-    tr, _ = gate2.LOADERS[a.dataset]("train", a.train_limit)
-    va, _ = gate2.LOADERS[a.dataset]("validation", a.val_limit)
-    X8, Xg, Y = make_rows(model, tr, a.k, a.cap, 40, 40, rng, with_graph=True)
-    log(f"[gate4] train rows {X8.shape} (+graph {Xg.shape}); training two heads ...")
+    tr, tr_corpus = gate2.LOADERS[a.dataset]("train", a.train_limit)
+    va, va_corpus = gate2.LOADERS[a.dataset]("validation", a.val_limit)
+    log(f"[gate4] FULL corpora: train={len(tr_corpus)} val={len(va_corpus)} paragraphs")
+    X8, Xg, Y = make_rows(model, tr, tr_corpus, a.k, a.cap, 40, 40, rng, with_graph=True)
+    Xn = rng.random((len(X8), 4), dtype=np.float32)   # noise-control features (train side)
+    log(f"[gate4] train rows {X8.shape} (+graph {Xg.shape}); training three heads ...")
     head8 = HistGradientBoostingClassifier(max_iter=300, random_state=a.seed).fit(X8, Y)
     headg = HistGradientBoostingClassifier(max_iter=300, random_state=a.seed).fit(np.hstack([X8, Xg]), Y)
+    headn = HistGradientBoostingClassifier(max_iter=300, random_state=a.seed).fit(np.hstack([X8, Xn]), Y)
 
     log("[gate4] evaluating on validation ...")
-    cnt, n, nb_all = evaluate(model, va, head8, headg, a.k, a.cap, Ks, a.Kbridge)
+    cnt, n, nb_all = evaluate(model, va, va_corpus, head8, headg, headn, a.k, a.cap, Ks,
+                              a.Kbridge, a.seed)
     nb = cnt["dense"][True][Ks[-1]][1]; nn = cnt["dense"][False][Ks[-1]][1]
-    POL = ["dense", "emb8", "emb8+graph", "oracle"]
+    POL = ["dense", "emb8", "emb8+graph", "emb8+noise", "oracle"]
     R = {p: {name: {K: round(rate(cnt[p][b][K]), 1) for K in Ks}
              for name, b in (("bridge", True), ("nonbridge", False), ("overall", "all"))} for p in POL}
-    json.dump({"config": vars(a), "n_states": n, "n_bridge": nb, "results": R},
+    json.dump({"config": vars(a), "n_states": n, "n_bridge": nb,
+               "corpus_train": len(tr_corpus), "corpus_val": len(va_corpus), "results": R},
               open(a.out, "w"), indent=2)
 
     print("\n" + "=" * 74)
@@ -211,16 +220,23 @@ def main():
             print(f"    {p:>12} | " + " | ".join(f"{R[p][split][K]:5.1f}" for K in Ks))
 
     kb = Ks[-1]; b8 = R["emb8"]["bridge"][kb]; bg = R["emb8+graph"]["bridge"][kb]
+    bn = R["emb8+noise"]["bridge"][kb]
+    n8 = R["emb8"]["overall"][kb]; ng = R["emb8+graph"]["overall"][kb]
+    nn_ = R["emb8+noise"]["overall"][kb]
     print("\n" + "-" * 74)
-    print(f"VERDICT @K={kb}:  emb8 bridge recovery={b8:.0f}%  ->  emb8+graph={bg:.0f}%"
-          f"   (Gate 3 bar = 28%)")
-    if bg >= 28 and bg > b8 + 1:
-        print(f"  => graph/PPR clears the 28% bar ({bg:.0f}%): selective triggering becomes viable.")
-    elif bg > b8 + 1:
-        print(f"  => graph features help (+{bg-b8:.0f} pts) but stay below 28%: not yet enough.")
+    print(f"VERDICT @K={kb}:  bridge: emb8={b8:.0f}%  emb8+graph={bg:.0f}%  emb8+noise={bn:.0f}%")
+    print(f"                 net   : emb8={n8:.0f}%  emb8+graph={ng:.0f}%  emb8+noise={nn_:.0f}%")
+    if bg > b8 + 1:
+        print(f"  => graph features help bridge recovery (+{bg-b8:.0f} pts).")
     else:
-        print(f"  => graph features do NOT help bridge recovery. Signal isn't simple graph reachability;"
-              f" needs a trained model (GNN/cross-encoder, GPU tier).")
+        print(f"  => graph features do NOT help bridge recovery.")
+    # noise control disambiguates: capacity artifact vs actively-misleading signal
+    if abs(bn - b8) <= 2 and bg < b8 - 1:
+        print("  noise control: emb8+noise ~= emb8 while emb8+graph is lower -> the degradation is"
+              " SPECIFIC to graph features (actively misleading), not a generic added-feature cost.")
+    elif bn < b8 - 1 and bg < b8 - 1:
+        print("  noise control: emb8+noise ALSO degrades -> part of the drop is a generic"
+              " added-feature/capacity artifact; the 'inherited geometry' story alone is NOT proven.")
     print(f"\nwrote {a.out}")
 
 if __name__ == "__main__":
