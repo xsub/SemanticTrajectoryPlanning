@@ -2,12 +2,13 @@
 
 The deployment test after Gate 2 showed a uniform Bridge Score re-rank is net-negative.
 
-> **Result: no — selective triggering does not rescue it.** Bridge states are only weakly
-> detectable (ROC-AUC 0.70), and no trigger threshold beats plain dense retrieval net — the
-> optimum is to never fire. At the achievable detector precision (~0.44), each escalation loses
-> more on false-fired easy hops than it gains on true bridges. This quantifies the real
-> bottleneck: the re-ranker must recover **>28%** of bridges (vs today's 23%) for selective
-> triggering to pay off. Full numbers + the break-even arithmetic: [`RESULTS.md`](RESULTS.md).
+> **Result (v2, TRUE corpus — corrected after [ARC_VERIFICATION](../../docs/ARC_VERIFICATION.md)
+> D1+D2): no — the selective-triggering door is closed, decisively.** The detector improved
+> (ROC-AUC 0.736; detection is not the bottleneck), but the corrected, *empirical* fired-subset
+> arithmetic requires trigger precision ≈**0.94** (gain when right R≈0.06, loss when wrong
+> L≈0.86) while the detector achieves ≈0.7. No threshold beats dense (51.4% vs 51.6%); the
+> optimum is "never fire". The v1 ">28% recovery" target was an artifact of population-average
+> arithmetic (D2) and is obsolete. Full sweep with per-τ R/L: [`RESULTS.md`](RESULTS.md).
 
 ## Why this experiment exists
 

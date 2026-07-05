@@ -4,13 +4,16 @@ The "stronger re-ranker" test. Gate 3 showed selective triggering needs the Brid
 recover >28% of bridges (vs Gate 2's 23%) to pay off. This gate tries the cheap, CPU-feasible
 route to a stronger signal.
 
-> **Result: no — and it explains why.** Adding personalized-PageRank + graph-reachability
-> features over the embedding kNN graph *lowers* bridge recovery (23% → 20%) and net recovery
-> (62% → 55%). Root cause: the kNN graph is built from the same embeddings, so a bridge is far
-> in the graph too — graph reachability is a noisier restatement of cosine, not a new signal.
-> This is empirically *why HopRAG uses LLM-generated bridge edges* rather than embedding-kNN
-> edges. Clearing 28% needs non-embedding edges (LLM) or a trained GNN/cross-encoder (GPU).
-> Full numbers + the scale-confound control: [`RESULTS.md`](RESULTS.md).
+> **Result (v2, TRUE corpus + noise control — corrected after
+> [ARC_VERIFICATION](../../docs/ARC_VERIFICATION.md)): no — and the v1 explanation was wrong
+> too.** On the full corpus, graph/PPR features give no bridge gain (4.6% → 5.2%, at a
+> negligible floor), and the new `emb8+noise` control (4 pure-noise columns) degrades net
+> recovery even *more* than graph features do (9.6% vs 13.7%) — so the collapse is **generic
+> added-feature fragility of the GBM head, not graph-specific misleading**. The v1 "inherited
+> geometry / this is why HopRAG uses LLM edges" narrative is downgraded to an untested
+> hypothesis (HopRAG's edge matching is in fact hybrid keyword+embedding, D9). Testing it
+> properly needs a trained GNN or non-embedding edges — the GPU/LLM tier this arc stops short
+> of. Full numbers: [`RESULTS.md`](RESULTS.md).
 
 ## Why this experiment exists
 

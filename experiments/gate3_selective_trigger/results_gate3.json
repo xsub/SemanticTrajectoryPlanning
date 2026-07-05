@@ -10,150 +10,190 @@
     "out": "results_gate3.json"
   },
   "n_states": 6404,
-  "n_bridge": 1864,
-  "auc": 0.702,
-  "dense_net": 0.7089,
-  "uniform_bs_net": 0.6188,
+  "n_bridge": 3098,
+  "auc": 0.736,
+  "dense_net": 0.5162,
+  "uniform_bs_net": 0.2993,
   "best_selective": {
-    "tau": 0.9,
-    "fire_rate": 0.003,
-    "precision": 0.55,
-    "recall": 0.006,
-    "net": 0.7091
+    "tau": 0.95,
+    "fire_rate": 0.013,
+    "precision": 0.747,
+    "recall": 0.02,
+    "R_fired": 0.097,
+    "L_fired": 0.857,
+    "net": 0.5144
   },
   "sweep": [
     {
       "tau": 0.05,
-      "fire_rate": 0.643,
-      "precision": 0.399,
-      "recall": 0.883,
-      "net": 0.6319
+      "fire_rate": 0.825,
+      "precision": 0.566,
+      "recall": 0.965,
+      "R_fired": 0.047,
+      "L_fired": 0.641,
+      "net": 0.309
     },
     {
       "tau": 0.1,
-      "fire_rate": 0.534,
-      "precision": 0.415,
-      "recall": 0.762,
-      "net": 0.6482
+      "fire_rate": 0.753,
+      "precision": 0.6,
+      "recall": 0.934,
+      "R_fired": 0.047,
+      "L_fired": 0.726,
+      "net": 0.3189
     },
     {
       "tau": 0.15,
-      "fire_rate": 0.441,
-      "precision": 0.423,
-      "recall": 0.639,
-      "net": 0.6618
+      "fire_rate": 0.697,
+      "precision": 0.618,
+      "recall": 0.891,
+      "R_fired": 0.049,
+      "L_fired": 0.781,
+      "net": 0.3293
     },
     {
       "tau": 0.2,
-      "fire_rate": 0.361,
-      "precision": 0.43,
-      "recall": 0.533,
-      "net": 0.6724
+      "fire_rate": 0.644,
+      "precision": 0.634,
+      "recall": 0.845,
+      "R_fired": 0.049,
+      "L_fired": 0.825,
+      "net": 0.342
     },
     {
       "tau": 0.25,
-      "fire_rate": 0.297,
-      "precision": 0.437,
-      "recall": 0.445,
-      "net": 0.6799
+      "fire_rate": 0.598,
+      "precision": 0.645,
+      "recall": 0.797,
+      "R_fired": 0.051,
+      "L_fired": 0.842,
+      "net": 0.3573
     },
     {
       "tau": 0.3,
-      "fire_rate": 0.243,
-      "precision": 0.446,
-      "recall": 0.373,
-      "net": 0.6872
+      "fire_rate": 0.548,
+      "precision": 0.651,
+      "recall": 0.737,
+      "R_fired": 0.051,
+      "L_fired": 0.862,
+      "net": 0.3699
     },
     {
       "tau": 0.35,
-      "fire_rate": 0.196,
-      "precision": 0.447,
-      "recall": 0.301,
-      "net": 0.6918
+      "fire_rate": 0.498,
+      "precision": 0.656,
+      "recall": 0.675,
+      "R_fired": 0.054,
+      "L_fired": 0.884,
+      "net": 0.3826
     },
     {
       "tau": 0.4,
-      "fire_rate": 0.16,
-      "precision": 0.444,
-      "recall": 0.244,
-      "net": 0.695
+      "fire_rate": 0.446,
+      "precision": 0.659,
+      "recall": 0.608,
+      "R_fired": 0.054,
+      "L_fired": 0.897,
+      "net": 0.3957
     },
     {
       "tau": 0.45,
-      "fire_rate": 0.125,
-      "precision": 0.444,
-      "recall": 0.191,
-      "net": 0.6997
+      "fire_rate": 0.394,
+      "precision": 0.664,
+      "recall": 0.541,
+      "R_fired": 0.055,
+      "L_fired": 0.907,
+      "net": 0.4105
     },
     {
       "tau": 0.5,
-      "fire_rate": 0.097,
-      "precision": 0.444,
-      "recall": 0.148,
-      "net": 0.7022
+      "fire_rate": 0.344,
+      "precision": 0.668,
+      "recall": 0.474,
+      "R_fired": 0.059,
+      "L_fired": 0.914,
+      "net": 0.4254
     },
     {
       "tau": 0.55,
-      "fire_rate": 0.072,
-      "precision": 0.431,
-      "recall": 0.106,
-      "net": 0.7042
+      "fire_rate": 0.291,
+      "precision": 0.677,
+      "recall": 0.407,
+      "R_fired": 0.063,
+      "L_fired": 0.917,
+      "net": 0.4425
     },
     {
       "tau": 0.6,
-      "fire_rate": 0.051,
-      "precision": 0.431,
-      "recall": 0.076,
-      "net": 0.705
+      "fire_rate": 0.238,
+      "precision": 0.685,
+      "recall": 0.337,
+      "R_fired": 0.063,
+      "L_fired": 0.919,
+      "net": 0.4578
     },
     {
       "tau": 0.65,
-      "fire_rate": 0.036,
-      "precision": 0.434,
-      "recall": 0.053,
-      "net": 0.7069
+      "fire_rate": 0.183,
+      "precision": 0.678,
+      "recall": 0.256,
+      "R_fired": 0.071,
+      "L_fired": 0.923,
+      "net": 0.4708
     },
     {
       "tau": 0.7,
-      "fire_rate": 0.024,
-      "precision": 0.458,
-      "recall": 0.038,
-      "net": 0.708
+      "fire_rate": 0.138,
+      "precision": 0.692,
+      "recall": 0.197,
+      "R_fired": 0.07,
+      "L_fired": 0.915,
+      "net": 0.4841
     },
     {
       "tau": 0.75,
-      "fire_rate": 0.014,
-      "precision": 0.516,
-      "recall": 0.025,
-      "net": 0.7085
+      "fire_rate": 0.099,
+      "precision": 0.676,
+      "recall": 0.138,
+      "R_fired": 0.072,
+      "L_fired": 0.917,
+      "net": 0.4917
     },
     {
       "tau": 0.8,
-      "fire_rate": 0.01,
-      "precision": 0.53,
-      "recall": 0.019,
-      "net": 0.7089
+      "fire_rate": 0.064,
+      "precision": 0.676,
+      "recall": 0.09,
+      "R_fired": 0.061,
+      "L_fired": 0.917,
+      "net": 0.4998
     },
     {
       "tau": 0.85,
-      "fire_rate": 0.005,
-      "precision": 0.515,
-      "recall": 0.009,
-      "net": 0.7089
+      "fire_rate": 0.041,
+      "precision": 0.672,
+      "recall": 0.057,
+      "R_fired": 0.079,
+      "L_fired": 0.908,
+      "net": 0.5061
     },
     {
       "tau": 0.9,
-      "fire_rate": 0.003,
-      "precision": 0.55,
-      "recall": 0.006,
-      "net": 0.7091
+      "fire_rate": 0.026,
+      "precision": 0.715,
+      "recall": 0.038,
+      "R_fired": 0.093,
+      "L_fired": 0.894,
+      "net": 0.5114
     },
     {
       "tau": 0.95,
-      "fire_rate": 0.001,
-      "precision": 0.857,
-      "recall": 0.003,
-      "net": 0.7089
+      "fire_rate": 0.013,
+      "precision": 0.747,
+      "recall": 0.02,
+      "R_fired": 0.097,
+      "L_fired": 0.857,
+      "net": 0.5144
     }
   ],
   "feat_importance": null

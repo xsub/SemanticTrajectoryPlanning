@@ -3,13 +3,14 @@
 The real-data, oracle-free test that follows Gate 0 (bridges exist) and Gate 1 (a Bridge Score
 solves them under oracle conditions, but ≈ lookahead).
 
-> **Result: mechanism transfers, deployment does not (yet).** A cheap learned Bridge Score
-> recovers **23%** of the bridge hops dense retrieval misses by construction (from 0%) — the
-> signal is real. But applied as a re-ranker it is **net-negative** (71% → 62% overall) because
-> it demotes easy hops; a budget-split hybrid only reaches 69%, still below dense. Net-positive
-> use needs a **selective trigger** (BS only when dense is stuck), which is left as future work
-> — and is hard, because at a bridge dense is *confidently wrong*. Full numbers +
-> caveats: [`RESULTS.md`](RESULTS.md).
+> **Result (v2, TRUE corpus — corrected after [ARC_VERIFICATION](../../docs/ARC_VERIFICATION.md)
+> D1): the cheap learned Bridge Score does NOT transfer.** On the full ~21k distractor corpus it
+> recovers only **4.6%** of bridge hops (the previously-reported 23% was an artifact of a
+> gold-only ~2.6k pool) while collapsing easy-hop recovery (100% → 54%); every deployment
+> variant is deeply net-negative (bs 30% vs dense 52%). Bridges are **48% of hops** on the
+> honest pool — the problem grew, the cheap solution shrank. This is a negative result for
+> embedding-feature Bridge Scores, not for the oracle mechanism (Gate 1). Full numbers + the
+> before/after comparison: [`RESULTS.md`](RESULTS.md).
 
 ## Why this experiment exists
 
