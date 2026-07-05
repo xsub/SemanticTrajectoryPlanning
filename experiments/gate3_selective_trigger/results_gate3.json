@@ -1,0 +1,160 @@
+{
+  "config": {
+    "dataset": "musique",
+    "model": "BAAI/bge-small-en-v1.5",
+    "train_limit": 4000,
+    "val_limit": 2417,
+    "K": 10,
+    "Kbridge": 10,
+    "seed": 0,
+    "out": "results_gate3.json"
+  },
+  "n_states": 6404,
+  "n_bridge": 1864,
+  "auc": 0.702,
+  "dense_net": 0.7089,
+  "uniform_bs_net": 0.6188,
+  "best_selective": {
+    "tau": 0.9,
+    "fire_rate": 0.003,
+    "precision": 0.55,
+    "recall": 0.006,
+    "net": 0.7091
+  },
+  "sweep": [
+    {
+      "tau": 0.05,
+      "fire_rate": 0.643,
+      "precision": 0.399,
+      "recall": 0.883,
+      "net": 0.6319
+    },
+    {
+      "tau": 0.1,
+      "fire_rate": 0.534,
+      "precision": 0.415,
+      "recall": 0.762,
+      "net": 0.6482
+    },
+    {
+      "tau": 0.15,
+      "fire_rate": 0.441,
+      "precision": 0.423,
+      "recall": 0.639,
+      "net": 0.6618
+    },
+    {
+      "tau": 0.2,
+      "fire_rate": 0.361,
+      "precision": 0.43,
+      "recall": 0.533,
+      "net": 0.6724
+    },
+    {
+      "tau": 0.25,
+      "fire_rate": 0.297,
+      "precision": 0.437,
+      "recall": 0.445,
+      "net": 0.6799
+    },
+    {
+      "tau": 0.3,
+      "fire_rate": 0.243,
+      "precision": 0.446,
+      "recall": 0.373,
+      "net": 0.6872
+    },
+    {
+      "tau": 0.35,
+      "fire_rate": 0.196,
+      "precision": 0.447,
+      "recall": 0.301,
+      "net": 0.6918
+    },
+    {
+      "tau": 0.4,
+      "fire_rate": 0.16,
+      "precision": 0.444,
+      "recall": 0.244,
+      "net": 0.695
+    },
+    {
+      "tau": 0.45,
+      "fire_rate": 0.125,
+      "precision": 0.444,
+      "recall": 0.191,
+      "net": 0.6997
+    },
+    {
+      "tau": 0.5,
+      "fire_rate": 0.097,
+      "precision": 0.444,
+      "recall": 0.148,
+      "net": 0.7022
+    },
+    {
+      "tau": 0.55,
+      "fire_rate": 0.072,
+      "precision": 0.431,
+      "recall": 0.106,
+      "net": 0.7042
+    },
+    {
+      "tau": 0.6,
+      "fire_rate": 0.051,
+      "precision": 0.431,
+      "recall": 0.076,
+      "net": 0.705
+    },
+    {
+      "tau": 0.65,
+      "fire_rate": 0.036,
+      "precision": 0.434,
+      "recall": 0.053,
+      "net": 0.7069
+    },
+    {
+      "tau": 0.7,
+      "fire_rate": 0.024,
+      "precision": 0.458,
+      "recall": 0.038,
+      "net": 0.708
+    },
+    {
+      "tau": 0.75,
+      "fire_rate": 0.014,
+      "precision": 0.516,
+      "recall": 0.025,
+      "net": 0.7085
+    },
+    {
+      "tau": 0.8,
+      "fire_rate": 0.01,
+      "precision": 0.53,
+      "recall": 0.019,
+      "net": 0.7089
+    },
+    {
+      "tau": 0.85,
+      "fire_rate": 0.005,
+      "precision": 0.515,
+      "recall": 0.009,
+      "net": 0.7089
+    },
+    {
+      "tau": 0.9,
+      "fire_rate": 0.003,
+      "precision": 0.55,
+      "recall": 0.006,
+      "net": 0.7091
+    },
+    {
+      "tau": 0.95,
+      "fire_rate": 0.001,
+      "precision": 0.857,
+      "recall": 0.003,
+      "net": 0.7089
+    }
+  ],
+  "feat_importance": null
+}
