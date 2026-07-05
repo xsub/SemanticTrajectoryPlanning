@@ -1,0 +1,74 @@
+{
+  "config": {
+    "dataset": "musique",
+    "model": "BAAI/bge-small-en-v1.5",
+    "train_limit": 4000,
+    "val_limit": 2417,
+    "k": 15,
+    "cap": 4,
+    "K": "5,10",
+    "Kbridge": 10,
+    "seed": 0,
+    "out": "results_gate4.json"
+  },
+  "n_states": 6404,
+  "n_bridge": 1864,
+  "results": {
+    "dense": {
+      "bridge": {
+        "5": 0.0,
+        "10": 0.0
+      },
+      "nonbridge": {
+        "5": 87.0,
+        "10": 100.0
+      },
+      "overall": {
+        "5": 61.7,
+        "10": 70.9
+      }
+    },
+    "emb8": {
+      "bridge": {
+        "5": 16.0,
+        "10": 22.6
+      },
+      "nonbridge": {
+        "5": 70.7,
+        "10": 78.0
+      },
+      "overall": {
+        "5": 54.8,
+        "10": 61.9
+      }
+    },
+    "emb8+graph": {
+      "bridge": {
+        "5": 10.8,
+        "10": 19.6
+      },
+      "nonbridge": {
+        "5": 48.1,
+        "10": 69.7
+      },
+      "overall": {
+        "5": 37.3,
+        "10": 55.1
+      }
+    },
+    "oracle": {
+      "bridge": {
+        "5": 100.0,
+        "10": 100.0
+      },
+      "nonbridge": {
+        "5": 100.0,
+        "10": 100.0
+      },
+      "overall": {
+        "5": 100.0,
+        "10": 100.0
+      }
+    }
+  }
+}
