@@ -105,18 +105,29 @@ def load_2wiki(split, limit):
             last = e; log(f"[data] {repo} failed: {e}")
     else:
         raise RuntimeError(f"could not load 2Wiki: {last}")
+    def S(x):  # context is List(List(Json)); titles/sentences may decode as int/float
+        return str(x).strip()
+
     items, corpus, dropped = [], {}, 0
     for ex in ds:
         if limit and len(items) >= limit: break
-        ctx = {t.strip(): " ".join(s).strip() for t, s in ex["context"]}
+        ctx = {}
+        for pair in ex["context"]:
+            if not (isinstance(pair, (list, tuple)) and len(pair) == 2):
+                continue
+            t, s = pair
+            sent = " ".join(S(x) for x in s) if isinstance(s, (list, tuple)) else S(s)
+            t = S(t)
+            if t and sent.strip():
+                ctx[t] = sent.strip()
         # order hops by evidences (subject then object titles), fallback supporting_facts order
         order = []
         for ev in ex.get("evidences", []) or []:
             for t in (ev[0], ev[-1]):
-                t = (t or "").strip()
+                t = S(t)
                 if t in ctx and t not in order: order.append(t)
         for sf in ex.get("supporting_facts", []) or []:
-            t = sf[0].strip()
+            t = S(sf[0])
             if t in ctx and t not in order: order.append(t)
         chain = [{"text": ctx[t], "title": t, "key": (t, ctx[t])} for t in order if ctx[t]]
         if len(chain) < 2:
